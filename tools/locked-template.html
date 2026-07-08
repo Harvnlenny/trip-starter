@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔒 %%TITLE%%</title>
+<style>
+  html,body{height:100%;margin:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       background:linear-gradient(135deg,#1f7a4d,#2a4d8f 55%,#c0392b);display:flex;align-items:center;justify-content:center;padding:20px}
+  .card{background:#fff;border-radius:16px;padding:34px 30px;max-width:360px;width:100%;text-align:center;
+        box-shadow:0 12px 40px rgba(0,0,0,.25)}
+  .emoji{font-size:2.4rem}
+  h1{margin:10px 0 4px;font-size:1.3rem;color:#1d2433}
+  p{margin:0 0 18px;color:#5b6678;font-size:.92rem}
+  input{width:100%;padding:12px 14px;font-size:1rem;border:1px solid #d4d9e2;border-radius:10px;margin-bottom:10px}
+  button{width:100%;padding:12px;font-size:1rem;font-weight:600;color:#fff;background:#2a4d8f;border:none;border-radius:10px;cursor:pointer}
+  button:hover{background:#22407a}
+  .err{color:#c0392b;font-size:.85rem;min-height:18px;margin-top:8px}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="emoji">🔒✈️</div>
+    <h1>%%TITLE%%</h1>
+    <p>Enter the password to view the trip details.</p>
+    <form id="f">
+      <input id="pw" type="password" placeholder="Password" autocomplete="current-password" autofocus>
+      <button type="submit">Unlock</button>
+    </form>
+    <div id="err" class="err"></div>
+  </div>
+<script>
+  var SALT="%%SALT%%", IV="%%IV%%", CT="%%CT%%", ITER=%%ITER%%;
+  function b2u(b){return Uint8Array.from(atob(b),function(c){return c.charCodeAt(0)});}
+  async function unlock(pw){
+    var enc=new TextEncoder();
+    var km=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);
+    var key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b2u(SALT),iterations:ITER,hash:'SHA-256'},
+            km,{name:'AES-GCM',length:256},false,['decrypt']);
+    var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b2u(IV)},key,b2u(CT));
+    return new TextDecoder().decode(pt);
+  }
+  document.getElementById('f').addEventListener('submit',async function(e){
+    e.preventDefault();
+    var err=document.getElementById('err'); err.textContent='';
+    if(!(window.crypto&&crypto.subtle)){ err.textContent='Open this via the https link (not a local file).'; return; }
+    try{
+      var html=await unlock(document.getElementById('pw').value);
+      document.open(); document.write(html); document.close();
+    }catch(_){ err.textContent='Wrong password — try again.'; }
+  });
+</script>
+</body>
+</html>
