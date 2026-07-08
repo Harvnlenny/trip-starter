@@ -1,0 +1,6 @@
+# Copied to trip.config by setup-trip.sh on first run. Do not edit by hand.
+# All values are filled in from your answers during setup — leave blank here.
+TRIP_NAME=""
+TRIP_SLUG=""
+GH_USERNAME=""
+PAGES_URL=""
