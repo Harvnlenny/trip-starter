@@ -49,6 +49,20 @@ with the current trip content, one `<section>` per docs file that has content. U
 ### 5. Updating later
 When they paste more info ("we booked the hotel"), repeat Organize → Build → `tools/publish.sh`.
 
+## Reusing features from another trip
+Sometimes the user wants a feature they built in a previous trip (a photo gallery,
+a custom layout, etc.).
+- You can only copy from another trip if you can **see its folder**. If you can't,
+  tell them to open the folder that contains both trips (e.g. their `Trips` folder)
+  so you can access both, then copy the feature over.
+- If a feature is generally useful, offer to add it to their **`trip-starter`
+  master** folder so every future trip they copy inherits it.
+- Trip content (photos, confirmation codes, details) stays per-trip — only the
+  feature/code carries over.
+- If a feature adds media such as images, remember only the page HTML is encrypted:
+  plan protection for those files too, or clearly warn the user before publishing
+  anything private.
+
 ## Security rules (non-negotiable)
 - **Never** put plaintext confirmation codes or personal details into the public
   `<slug>-page` repo. Only the encrypted `index.html` from `publish.sh` belongs there.
