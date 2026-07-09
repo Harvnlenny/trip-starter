@@ -13,7 +13,7 @@ helping may not be technical. Do the work for them; explain only what they need 
 Each trip lives in its own copy of this starter. Before organizing anything, check `trip.config`:
 - If `trip.config` does NOT exist yet → this is a fresh copy. Good, proceed.
 - If `trip.config` exists and its `TRIP_NAME` matches the trip they're describing → you're updating that same trip. Proceed.
-- If `trip.config` exists but names a DIFFERENT trip (e.g. it says Taiwan and they're now asking about Japan) → STOP. This folder already holds another trip; reusing it would overwrite that trip's docs and publish to the wrong page. Tell them to get a FRESH copy of the starter — download it again (on GitHub: "Code → Download ZIP", unzipped into a new folder) or clone it into a new folder — and open Claude there, then set up the new trip in that fresh copy.
+- If `trip.config` exists but names a DIFFERENT trip (e.g. it says Taiwan and they're now asking about Japan) → STOP. This folder already holds another trip; reusing it would overwrite that trip's docs and publish to the wrong page. Tell them to get a FRESH copy of the starter — on GitHub, click "Code → Download ZIP" and unzip it into a new folder — and open Claude there, then set up the new trip in that fresh copy.
 
 ## The workflow
 
