@@ -44,7 +44,13 @@ EOF
 
   # Private working repo (this folder)
   if ! gh repo view "$GH_USERNAME/$TRIP_SLUG" >/dev/null 2>&1; then
-    ( cd "$ROOT"; git init -q 2>/dev/null || true; git add -A; git commit -qm "Initial trip repo" 2>/dev/null || true )
+    ( cd "$ROOT"
+      git init -q 2>/dev/null || true
+      # A copy cloned from the starter template still points 'origin' at the
+      # template; drop it so this trip gets its own origin below.
+      git remote remove origin 2>/dev/null || true
+      git add -A
+      git commit -qm "Initial trip repo" 2>/dev/null || true )
     gh repo create "$GH_USERNAME/$TRIP_SLUG" --private --source="$ROOT" --remote=origin --push
     echo "Created private repo $GH_USERNAME/$TRIP_SLUG."
   else

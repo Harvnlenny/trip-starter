@@ -21,5 +21,7 @@ gh auth login
 Claude will tell you if this step is still needed.
 
 ## For each new trip
-Grab a fresh copy of this starter and repeat — each trip gets its own private repo and its
-own page. On your first trip with a new copy, run `setup-trip.sh` to create your repos.
+Get a **fresh copy** of this starter for each trip — download it again ("Code → Download ZIP"
+into a new folder, or clone it into a new folder) and open Claude there. Each trip gets its own
+private repo and its own page. Don't reuse a previous trip's folder — that would overwrite it.
+On your first trip with a new copy, run `setup-trip.sh` to create your repos.
