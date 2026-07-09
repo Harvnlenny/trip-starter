@@ -22,6 +22,10 @@ main() {
 
   if [ -z "${TRIP_NAME:-}" ]; then read -r -p "Trip name (e.g. a destination or dates): " TRIP_NAME; fi
   TRIP_SLUG="$(slugify "$TRIP_NAME")"
+  if [ -z "$TRIP_SLUG" ] || [ "$TRIP_SLUG" = "-trip" ] || [ "$TRIP_SLUG" = "trip" ]; then
+    echo "Please provide a trip name with at least one letter or number (e.g. a destination)." >&2
+    exit 1
+  fi
   if [ -z "${GH_USERNAME:-}" ]; then read -r -p "Your GitHub username: " GH_USERNAME; fi
   PAGES_URL="https://${GH_USERNAME}.github.io/${TRIP_SLUG}-page/"
 
