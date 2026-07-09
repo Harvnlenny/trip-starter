@@ -31,6 +31,7 @@ function promptHidden(query) {
         const code = ch.charCodeAt(0);
         if (ch === '\n' || ch === '\r' || code === 4) {
           if (stdin.setRawMode) stdin.setRawMode(false);
+          stdin.pause();
           stdinBuffer = input.slice(i + 1);
           process.stdout.write('\n'); resolve(pw);
           return true;
@@ -76,4 +77,4 @@ async function main() {
   console.log(`OK: Encrypted page written to ${cfg.slug}-page/index.html (AES-256-GCM).`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) main();
+if (import.meta.url === `file://${process.argv[1]}`) main().catch((e) => { console.error(e); process.exit(1); });
